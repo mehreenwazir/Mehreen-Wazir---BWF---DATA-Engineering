@@ -1,0 +1,55 @@
+                                                                Task 04:
+
+            1:  1:   Write a query to calculate the percentage  contribution of each item's amount to
+                          its order's total amount, grouped by order_id.
+                       Query: 
+                                     SELECT item_id, order_id, product_id,
+                                     amount( amount / SUM (amount) over (PARTITION BY order_id))*100
+                                     AS percentage_contribution
+                                      FROM items;
+
+            2: Write a query to rank orders by their total amount within each customer, 
+                   ordering them from highest to lowest total amount.
+                      Query:
+                                     SELECT  order_id, customer_id,
+                                     toatal_amount,
+                                      RANK()  over (PARTITION BY customer_id ORDER BY  total_amount DESC)
+                                     AS  order_rank
+                                      FROM orders;
+
+              3: Write a query to calculate  the average price of products supplied by each supplier.
+                    Exclude suppliers who have no products in the result.
+                     Query:
+                                    SELECT  s.supplier_id,
+                                     AVG(p.price)
+                                     AS average_price
+                                      FROM  suppliers s
+                                      JOIN products p ON s.supplier_id= p.supplier_id
+                                      GROUP BY s.supplier_id
+                                     HAVING COUNT (p.product_id)>0;
+
+               4:    Write a query to count  the number of products in each category.Include categories 
+                        with zero product in the result set.
+                      Query:
+                                       SELECT c.category_id,c.name,
+                                       COUNT (p.product_id)
+                                        AS product_count
+                                       FROM categories c LEFT JOIN products p 
+                                      ON c.category_id= category_id
+                                       GROUP BY c.category_id,c.name;
+
+                 5:   Write a query to retrieve the total amount spent by each customer, along with
+                         their name and phone number. Ensure customers with no orders also appear
+                         with a total amount of 0.
+                       Query:
+                                      
+                                       SELECT c.phone, c.name,
+                                       COALESCE(SUM( 0.tatal_amount),0)
+                                        AS total_amount_spent
+                                       FROM customer c LEFT JOIN orders 0
+                                      ON c. customer_id= 0.customer_id
+                                       GROUP BY c.customer_id,c.name, c.phone
+                                        ORDER BY total_amount_spent DESC;
+ 
+                         
+
