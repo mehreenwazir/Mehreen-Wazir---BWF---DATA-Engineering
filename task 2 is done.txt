@@ -1,0 +1,47 @@
+                       Mehreen Wazir 
+                       BWF
+                       DATA Engineering
+                        Task : 02
+      
+
+             01: Write a query to get data having length of  Rna structures more than 12 with them being added after 2008.
+             
+           Query:
+                         SELECT * FROM rna
+                         WHERE   len>12 
+                          AND  timestamp>'2008-12-31'
+                         LIMIT 500;
+  
+             02: How many precomputed Rna are present that are still active and got their last release update before 2022.
+
+         Query: 
+                        SELECT * FROM rna_rnc_precomputed
+                        WHERE is_active=true
+                        AND  update_date <'2022-01-01'
+                        LIMIT 1000;
+
+             03: How many total precomputed Rna records for SnoRNA and tRNA were recorded in 2011,2016,2014, and 2020.
+
+         Query:
+                       SELECT * FROM rnc_rna_precomputed
+                       WHERE rna_type in('SnoRNA','tRNA')
+                       AND extract ( year from update_date) IN (2011,2014,2016,2020)
+                       LIMIT 500;
+
+
+          04:  Can you give me the names of all databases built for RNA with minimum length other than 100,200,300,400 and 15.
+  
+          Query:
+                        SELECT  display_name  FROM  rnc_database 
+                        WHERE min_length not in (100,200,300,400 and 15)
+                         LIMIT 500;
+
+            05:  5: Can you get complete 500 records of sequences for active regions and name your column as myregions in which you are getting
+                     the region name column vakue.Then tell me what different chromosomes with exon_count we have for regions including center
+                     ,east and north using the name you set for your column.
+                 
+                   
+           Query: 
+                           SELECT  region_name  as myregions  FROM  rnc_sequence_regions
+                         LIMIT 500;
+ 
