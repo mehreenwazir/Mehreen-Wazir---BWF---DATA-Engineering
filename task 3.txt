@@ -1,0 +1,49 @@
+                                                                                            Task : 03
+
+          1:  Write a query to fetch all customer names and sort them alphabetically.
+
+         Query:
+                        SELECT name
+                        FROM customers
+                        ORDER BY name ASC;
+
+          2:  Write a query to fetch all product names and their prices, sorted by price from low to high.
+
+          Query: 
+                         SELECT product_id,price
+                        FROM products
+                        ORDER BY  price  ASC;
+
+           3:  Write a query to fetch supplier names that start with the letter 'A' and sort them by their names.
+
+           Query: 
+                          SELECT name
+                        FROM suppliers
+                          WHERE name  like 'A%'
+                        ORDER BY name ASC;
+
+              4:  Write a query to fetch all items and sort them by their status, placing NULL values first.
+
+               Query: 
+                              SELECT  *
+                        FROM  items
+                        ORDER BY  status is null , status ASC; 
+
+               5:  Write a query to fetch all products, sort them first by category and then by price in descending order.
+
+                Query:
+                                SELECT  *
+                        FROM products
+                        ORDER BY  category, price  DESC;
+
+                6:   6: Write a query to fetch all customer names and phone numbers,but sort them by the last four digits
+                        of their phone numbers in ascending order.
+
+                Query:
+                               SELECT name,phone
+                        FROM customers
+                        ORDER BY substring(phone from length(phone) -3 for 4);
+
+
+
+ 
