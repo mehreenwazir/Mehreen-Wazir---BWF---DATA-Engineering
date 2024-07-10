@@ -1,0 +1,89 @@
+                                                                                       Task: 05
+                 1: Write a query to retreive all orders placed by customers including  customer 
+                  details( name, phone), order details (order ID, timestamp), and item details
+                   ( product , amount).
+                   Query:
+                                  SELECT c.name AS customer_name,
+                                   c.phone AS customer_phone,
+                                    o.order_id,
+                                   0.order_timestamp,
+                                   i.product_id,
+                                   p.name,
+                                   i.amount
+                               FROM customers c
+                                JOIN order o
+                               ON c.customer_id= o.customer_id
+                               JOIN items i
+                               ON o.order_id=i.order_id
+                              JOIN products p 
+                             ON  i.product_id=p.product_id
+                             ORDER BY c.customer_id,0.order_timestamp;
+
+              2: Write a query to  fetch all products along with their suppliers details ( name, phone) 
+                          and the corresponding category name.
+                    Query:
+                                  SELECT p.product_id, 
+                                   p.name AS  product_name,
+                                   p.price,
+                                   s.name AS supplier_name,
+                                   s.phone AS supplier phone,
+                                    c.name AS category_name
+                                   
+                               FROM products p
+                                JOIN suppliers s
+                               ON p.supplier_id= s.supplier_id
+                               JOIN categories c
+                               ON p.category :: UUID=c.category_id;
+
+               
+        3: Write a query to retreive details of all orders including the product name and 
+                amount ordered for each item.
+               Query: 
+                              SELECT order_id,
+                              0.order_timestamp,
+                             p.name AS product_name,
+                              i.amount
+                                FROM orders o
+                               JOIN items i
+                             ON o.order_id=i.order_id
+                          JOIN products p
+                          ON i.product_id=p.product_id;
+
+            4:  Write a query to retreive all suppliers along with the city and country where they 
+                     were located,and the products they supply.
+                   Query:
+                                 SELECT s.name AS supplier_name,
+                                 s.location AS supplier_location,
+                                 p.name AS product_name,
+                                  FROM suppliers s
+                                 JOIN products p
+                               ON s.supplier_id=p.supplier_id;
+
+             5:  Write a query to fetch details of the most recent order (by timestamp) placed by 
+                    each customer, including the product details for each item in the order. 
+                  Query:
+                                WITH recent_orders AS(
+                                 SELECT o.customer_id,
+                                    o.order_id,
+                                o.order_timestamp
+                               RANK() over(PARTITION BY  o.customer_id ORDER BY o.order_timestamp DESC)
+                                AS order_rank
+                              FROM orders o
+                               )
+                            SELECT c.customer_id,
+                            c.phone AS customer_phone,
+                            ro.order_id,
+                            ro.order_timestamp,
+                            i.product_id,
+                            i.amount
+                           FROM recent_orders ro
+                           JOIN items i
+                         ON ro.order_id=i.order_id
+                         JOIN customers c
+                          ON ro.customer_id=c.customer_id
+                          JOIN products p
+                         ON i.product_id=p.product_id
+                       WHERE ro.order_rank=1;
+                                
+
+                              
