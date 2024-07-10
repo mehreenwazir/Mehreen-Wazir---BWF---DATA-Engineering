@@ -1,4 +1,4 @@
-                                                                                       Task: 05
+                                      Task: 05
                  1: Write a query to retreive all orders placed by customers including  customer 
                   details( name, phone), order details (order ID, timestamp), and item details
                    ( product , amount).
